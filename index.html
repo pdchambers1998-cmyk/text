@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Opening Messages</title></head>
+<body>
+<script>
+(function() {
+  var q = new URLSearchParams(location.search);
+  var to = q.get('to') || '';
+  var body = q.get('body') || '';
+  var digits = to.replace(/\D/g, '');
+  var plus = to.charAt(0) === '+' ? '+' : '';
+  if (digits.length >= 7 && digits.length <= 16) {
+    var sms = 'sms:' + plus + digits + '&body=' + encodeURIComponent(body);
+    var a = document.getElementById('go');
+    a.href = sms;
+    a.textContent = 'Open in Messages';
+    location.replace(sms);
+  } else {
+    document.getElementById('msg').textContent = 'Invalid phone number.';
+  }
+})();
+</script>
+<p id="msg" style="font-family:sans-serif;">Opening Messages... <a id="go" href="#">tap here if not redirected</a></p>
+</body></html>
